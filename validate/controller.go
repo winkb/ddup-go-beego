@@ -1,8 +1,8 @@
 package validate
 
 import (
-	"ddup-go-beego/logs"
 	"github.com/astaxie/beego/validation"
+	"github.com/winkb/ddup-go-beego/logs"
 )
 
 type ControllerValidate struct {

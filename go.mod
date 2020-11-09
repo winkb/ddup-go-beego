@@ -1,4 +1,4 @@
-module ddup-go-beego
+module github.com/winkb/ddup-go-beego
 
 go 1.14
 
