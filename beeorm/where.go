@@ -7,6 +7,14 @@ import (
 	"strconv"
 )
 
+func ScoreWhere(qSelect orm.QuerySeter, wh []*where.Where) orm.QuerySeter {
+	for _, wr := range wh {
+		qSelect = ForBeeGoOrm(wr, qSelect)
+	}
+
+	return qSelect
+}
+
 func ForBeeGoOrm(wr *where.Where, db orm.QuerySeter) orm.QuerySeter {
 
 	switch wr.Con {
