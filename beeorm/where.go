@@ -15,6 +15,17 @@ func ScoreWhere(qSelect orm.QuerySeter, wh []*where.Where) orm.QuerySeter {
 	return qSelect
 }
 
+func ScopeWhere(wh []*where.Where, q orm.QueryBuilder) (orm.QueryBuilder, []interface{}) {
+	vals := []interface{}{}
+
+	for _, v := range wh {
+		q = ForBeeGoBuilder(v, q)
+		vals = append(vals, v.Val)
+	}
+
+	return q, vals
+}
+
 func ForBeeGoOrm(wr *where.Where, db orm.QuerySeter) orm.QuerySeter {
 
 	switch wr.Con {
@@ -41,4 +52,26 @@ func ForBeeGoOrm(wr *where.Where, db orm.QuerySeter) orm.QuerySeter {
 	}
 
 	return db.Filter(wr.Name, wr.Val)
+}
+
+func ForBeeGoBuilder(wr *where.Where, db orm.QueryBuilder) orm.QueryBuilder {
+
+	switch wr.Con {
+	case "=":
+		return db.Where(wr.Name + " = ?")
+	case "like":
+		return db.Where(wr.Name + " like %?%")
+	case "<>":
+		return db.Where(wr.Name + " <> ?")
+	case ">":
+		return db.Where(wr.Name + " > ?")
+	case ">=":
+		return db.Where(wr.Name + " >= ?")
+	case "<":
+		return db.Where(wr.Name + " < ?")
+	case "<=":
+		return db.Where(wr.Name + " <= ?")
+	}
+
+	return db.Where(wr.Name + " = ?")
 }
