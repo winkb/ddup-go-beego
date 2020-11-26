@@ -4,5 +4,6 @@ go 1.14
 
 require (
 	github.com/astaxie/beego v1.12.3
-	github.com/winkb/ddup-go-util v0.0.8
+	github.com/jinzhu/gorm v1.9.14 // indirect
+	github.com/winkb/ddup-go-util v1.2.0
 )
