@@ -49,6 +49,8 @@ func ForBeeGoOrm(wr *where.Where, db orm.QuerySeter) orm.QuerySeter {
 		return db.Filter(wr.Name+"__lt", wr.Val)
 	case "<=":
 		return db.Filter(wr.Name+"__lte", wr.Val)
+	case "in":
+		return db.Filter(wr.Name+"__in", wr.Val)
 	}
 
 	return db.Filter(wr.Name, wr.Val)
@@ -71,6 +73,8 @@ func ForBeeGoBuilder(wr *where.Where, db orm.QueryBuilder) orm.QueryBuilder {
 		return db.Where(wr.Name + " < ?")
 	case "<=":
 		return db.Where(wr.Name + " <= ?")
+	case "in":
+		return db.In(wr.Name, "  ?")
 	}
 
 	return db.Where(wr.Name + " = ?")
